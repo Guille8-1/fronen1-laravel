@@ -20,8 +20,8 @@ const routes: Routes = [
       {
         path:'auth',
         loadChildren: ()=>import('./auth/auth.module').then(m=>m.AuthModule)
-      }
-    ] 
+      },
+    ]
   },
   {
     path: 'error-404',
@@ -31,6 +31,7 @@ const routes: Routes = [
     path: '**',
     redirectTo:'/error-404'
   }
+
 ];
 
 @NgModule({
