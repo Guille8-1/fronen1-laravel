@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
@@ -13,17 +14,22 @@ export class LoginComponent implements OnInit {
     password : new FormControl('',Validators.required)
   });
 
-  constructor(private logInService: LoginService) { }
+  constructor(private logInService: LoginService, private router:Router ) { }
 
   ngOnInit(): void {
   }
   logIn(){
     this.logInService.conectLoginLaravel(this.loginForm.value).subscribe(
-      (res) =>{
-        console.log(res)
+      (res:any) =>{
+        localStorage.setItem("token",res.access_token)
+        this.router.navigate(["/admin"])
+        console.log("********",res)
       },
       (error)=> {
-        console.log(error)
+        console.log("----", error);
+        if(error.status === 401){
+          alert("Not Vaild parameters!")
+        }
       }
     )
 

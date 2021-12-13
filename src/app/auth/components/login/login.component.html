@@ -1,14 +1,23 @@
-<h1>Log in</h1>
-<form [formGroup]="loginForm">
-    <input type="email" formControlName='email'placeholder="Email">
-    <br>
-    <input type="password" formControlName='password'placeholder="Password">
-    <br>
-    <button (click)="logIn()" [disabled]="!loginForm.valid">Log In!</button>
+<form [formGroup]="loginForm" [style]="{width: '16vw'}">
+<div class="p-grid p-fluid">
+    <div class="p-col-12 p-md-6">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input type="email" formControlName='email' pInputText placeholder="E-mail">         
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+            <input type="password" formControlName='password' pInputText placeholder="Password">         
+        </div>
+    </div>
+    <div class="p-col-12 p-md-6">
+        <div class="p-inputgroup">
+            <button pButton type="button" label="Log In" [disabled]="!loginForm.valid" (click)="logIn()" ></button>
+        </div>
+    </div>
+    
+
+</div>
 </form>
-<hr>
-
-{{ loginForm.value | json }}
-<hr>
-{{ loginForm.valid }}
-
