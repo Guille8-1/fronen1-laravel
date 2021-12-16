@@ -11,6 +11,7 @@ import {ButtonModule} from 'primeng/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PrimengModule } from './primeng/primeng.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    ButtonModule
+    ButtonModule,
+    PrimengModule
   ],
   providers: [
     {

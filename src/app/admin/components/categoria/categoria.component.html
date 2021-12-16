@@ -1,37 +1,72 @@
-
 <p-dialog header="Nueva Categoria" [(visible)]="display" [style]="{width: '30vw'}">
-<form [formGroup]='categoriaForm'>
-    <span class="p-float-label">
-        <input id ="float-input" type="text" pInputText class="p-inputtext-lg" formControlName="nombre">
-        <label class="border"for="float-input" pInputText>Product Name</label>
-    </span>
-
-    <textarea pInputTextarea formControlName="detalle"></textarea>
-</form>
-
-<ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" label="Guardar Categoria" styleClass="p-button-text" (click)="guardarCategoria()">
-    </p-button>
-</ng-template>
+    <form [formGroup]='categoriaForm'>
+        <span class="p-float-label">
+            <input   id ="float-input" type="text" pInputText class="p-inputtext-lg" formControlName="nombre">
+            <label class="border" for="float-input" pInputText>Product Name</label>
+        </span>
+    
+        <textarea class="margin" placeholder="Description" pInputTextarea formControlName="detalle"></textarea>
+    </form>
+    
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Guardar Categoria" styleClass="p-button-text" (click)="guardarCategoria()">
+        </p-button>
+    </ng-template>
 </p-dialog>
 
 <button pButton type="" (click)="openNuevaCategoria()" icon="pi pi-info-circle" label="Nueva Categoria"></button>
-<p-toast></p-toast>
 
-<p-table [value]="lista_categorias" responsiveLayout="scroll">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Detalle</th>
-            <th>Acciones</th>
-        </tr>
+
+<p-dialog header="Nueva SubCategoria" [(visible)]="displaySub" [style]="{width: '20vw'}" [style]="{height: '26vw'}">
+    <form [formGroup]='subcategoriaForm'>
+        <span class="p-float-label">
+            <input id ="float-input" type="text" pInputText class="p-inputtext-lg" formControlName="nombre" class="fa-border">
+            <label class="border"for="float-input" pInputText>Input Name</label>
+        </span>
+
+        <p-dropdown class="dropdown" [options]="lista_categorias" placeholder="Select"  optionLabel="nombre" optionValue="id"formControlName="categoria_id" [style]="{width:'20vw'}"  ></p-dropdown>
+    </form>
+    
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Guardar SubCategoria" styleClass="p-button-text" (click)="guardarSubCategoria()">
+        </p-button>
     </ng-template>
-    <ng-template pTemplate="body" let-categoria>
-        <tr>
-            <td>{{categoria.id}}</td>
-            <td>{{categoria.nombre}}</td>
-            <td>{{categoria.detalle}}</td>
-        </tr>
-    </ng-template>
-</p-table>
+
+</p-dialog>
+    
+    <button pButton type="" (click)="openNuevaSubCategoria()" icon="pi pi-info-circle" label="Nueva SubCategoria"></button>
+    <p-toast></p-toast>
+    
+    <p-table [value]="lista_categorias" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Detalle</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-categoria>
+            <tr>
+                <td>{{categoria.id}}</td>
+                <td>{{categoria.nombre}}</td>
+                <td>{{categoria.detalle}}</td>
+                <td>
+                    <p-button (click)="showSubCategoriasDialog(categoria.id)" icon="pi pi-external-link" label="Show Subcategorias"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+  
+    <p-dialog header="Lista de Sub Categorias" [(visible)]="displaySubcategorias" [style]="{width: '50vw'}">
+
+        <h1 *ngIf="cargando">Loading...</h1>
+        <h1>Categoria: {{subcategorias_lista.nombre}}</h1>
+        <ul>
+            <li *ngFor="let subcat of subcategorias_lista.sub_categorias">{{subcat.nombre}}</li>
+        </ul>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displaySubcategorias=false" label="Close" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
